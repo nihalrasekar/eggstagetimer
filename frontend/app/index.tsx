@@ -456,12 +456,12 @@ export default function Index() {
         <Text style={styles.stageLabel}>{stageConfig.name}</Text>
         <Text style={styles.timeRange}>{stageConfig.timeRange} total</Text>
 
-        {/* Egg Illustration */}
+        {/* Egg Illustration - standalone */}
         <Animated.View style={[styles.eggContainer, animatedEgg]}>
           {renderEgg()}
         </Animated.View>
 
-        {/* Circular Timer */}
+        {/* Circular Timer - separate section */}
         <Animated.View style={[styles.timerContainer, animatedPulse]}>
           <View style={styles.progressContainer}>
             {renderProgressRing()}
