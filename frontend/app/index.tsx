@@ -30,29 +30,32 @@ const STAGES = {
   SOFT: {
     id: 1,
     name: 'Soft Boiled',
-    duration: 360, // 6 minutes in seconds
+    duration: 360, // 6 minutes in seconds (4-6 min range)
     bgColor: '#FFF8E7',
     accentColor: '#FFE680',
-    description: 'Whites are set, yolk is warm and runny — perfect for ramen or toast dipping',
-    badge: '🟡 Runny Yolk',
+    description: 'Whites are set but soft, yolk is runny and liquid — perfect for ramen or toast dipping',
+    badge: '🟡 Liquid Yolk',
+    timeRange: '4–6 minutes',
   },
   MEDIUM: {
     id: 2,
     name: 'Medium Boiled',
-    duration: 180, // 3 minutes in seconds
+    duration: 180, // 3 minutes in seconds (total: 9 min, range 7-9)
     bgColor: '#FFD966',
     accentColor: '#FFC107',
-    description: 'Whites fully set, yolk is jammy and creamy — great for salads and grain bowls',
+    description: 'Whites are fully set, yolk is jammy and semi-soft in the center — great for salads and grain bowls',
     badge: '🟠 Jammy Yolk',
+    timeRange: '7–9 minutes',
   },
   HARD: {
     id: 3,
     name: 'Hard Boiled',
-    duration: 180, // 3 minutes in seconds
+    duration: 180, // 3 minutes in seconds (total: 12 min, range 10-12+)
     bgColor: '#F5C400',
     accentColor: '#E6A800',
-    description: 'Fully cooked through — ideal for deviled eggs, sandwiches, and meal prep',
+    description: 'Whites are fully firm, yolk is completely solid and dry — ideal for deviled eggs, sandwiches, and meal prep',
     badge: '⚪ Solid Yolk',
+    timeRange: '10–12+ minutes',
   },
 };
 
