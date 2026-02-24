@@ -426,65 +426,70 @@ export default function Index() {
     <Animated.View style={[styles.container, animatedBackground]}>
       <StatusBar style="dark" />
       
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <Text style={styles.appName}>EggTimer 🥚</Text>
-      </View>
-
-      {/* Stage Indicators */}
-      <View style={styles.stageIndicators}>
-        {[1, 2, 3].map((stage) => (
-          <View
-            key={stage}
-            style={[
-              styles.stageDot,
-              stage === currentStage && { backgroundColor: stageConfig.accentColor },
-              stage < currentStage && { backgroundColor: '#4CAF50' },
-            ]}
-          />
-        ))}
-      </View>
-
-      {/* Stage Label */}
-      <Text style={styles.stageLabel}>{stageConfig.name}</Text>
-
-      {/* Egg Illustration */}
-      <Animated.View style={[styles.eggContainer, animatedEgg]}>
-        {renderEgg()}
-      </Animated.View>
-
-      {/* Circular Timer */}
-      <Animated.View style={[styles.timerContainer, animatedPulse]}>
-        <View style={styles.progressContainer}>
-          {renderProgressRing()}
-          <View style={styles.timeDisplay}>
-            <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
-          </View>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <Text style={styles.appName}>EggTimer 🥚</Text>
         </View>
-      </Animated.View>
 
-      {/* Stage Info Card */}
-      <View style={styles.infoCard}>
-        <Text style={styles.badge}>{stageConfig.badge}</Text>
-        <Text style={styles.description}>{stageConfig.description}</Text>
-      </View>
+        {/* Stage Indicators */}
+        <View style={styles.stageIndicators}>
+          {[1, 2, 3].map((stage) => (
+            <View
+              key={stage}
+              style={[
+                styles.stageDot,
+                stage === currentStage && { backgroundColor: stageConfig.accentColor },
+                stage < currentStage && { backgroundColor: '#4CAF50' },
+              ]}
+            />
+          ))}
+        </View>
 
-      {/* Control Buttons */}
-      <View style={styles.controls}>
-        <TouchableOpacity
-          style={[styles.button, styles.primaryButton, { backgroundColor: stageConfig.accentColor }]}
-          onPress={handleStartPause}
-        >
-          <Text style={styles.buttonText}>{isRunning ? 'Pause' : 'Start'}</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity
-          style={[styles.button, styles.secondaryButton]}
-          onPress={handleReset}
-        >
-          <Text style={[styles.buttonText, { color: '#333' }]}>Reset</Text>
-        </TouchableOpacity>
-      </View>
+        {/* Stage Label */}
+        <Text style={styles.stageLabel}>{stageConfig.name}</Text>
+
+        {/* Egg Illustration */}
+        <Animated.View style={[styles.eggContainer, animatedEgg]}>
+          {renderEgg()}
+        </Animated.View>
+
+        {/* Circular Timer */}
+        <Animated.View style={[styles.timerContainer, animatedPulse]}>
+          <View style={styles.progressContainer}>
+            {renderProgressRing()}
+            <View style={styles.timeDisplay}>
+              <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
+            </View>
+          </View>
+        </Animated.View>
+
+        {/* Stage Info Card */}
+        <View style={styles.infoCard}>
+          <Text style={styles.badge}>{stageConfig.badge}</Text>
+          <Text style={styles.description}>{stageConfig.description}</Text>
+        </View>
+
+        {/* Control Buttons */}
+        <View style={styles.controls}>
+          <TouchableOpacity
+            style={[styles.button, styles.primaryButton, { backgroundColor: stageConfig.accentColor }]}
+            onPress={handleStartPause}
+          >
+            <Text style={styles.buttonText}>{isRunning ? 'Pause' : 'Start'}</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={[styles.button, styles.secondaryButton]}
+            onPress={handleReset}
+          >
+            <Text style={[styles.buttonText, { color: '#333' }]}>Reset</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </Animated.View>
   );
 }
