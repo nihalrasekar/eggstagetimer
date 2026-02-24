@@ -535,6 +535,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#333',
     textAlign: 'center',
+    marginBottom: 4,
+  },
+  timeRange: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#666',
+    textAlign: 'center',
     marginBottom: 16,
   },
   eggContainer: {
