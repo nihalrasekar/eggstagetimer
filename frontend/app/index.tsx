@@ -454,6 +454,7 @@ export default function Index() {
 
         {/* Stage Label */}
         <Text style={styles.stageLabel}>{stageConfig.name}</Text>
+        <Text style={styles.timeRange}>{stageConfig.timeRange} total</Text>
 
         {/* Egg Illustration */}
         <Animated.View style={[styles.eggContainer, animatedEgg]}>
