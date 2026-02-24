@@ -547,12 +547,14 @@ const styles = StyleSheet.create({
   eggContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
+    height: width * 0.4, // Fixed height to prevent overlap
   },
   timerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
+    marginTop: 8,
   },
   progressContainer: {
     alignItems: 'center',
