@@ -563,17 +563,23 @@ const styles = StyleSheet.create({
   progressBarContainer: {
     width: '80%',
     alignSelf: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
   },
   progressBarBackground: {
-    height: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 4,
+    height: 12,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 6,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   progressBarFill: {
     height: '100%',
-    borderRadius: 4,
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   timerContainer: {
     alignItems: 'center',
