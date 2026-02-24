@@ -265,7 +265,7 @@ export default function Index() {
 
   // Render egg illustration
   const renderEgg = () => {
-    const size = width * 0.35;
+    const size = width * 0.4; // Reduced from 0.35
     
     if (currentStage === 1) {
       // Soft boiled - liquid yolk
