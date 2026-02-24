@@ -497,8 +497,11 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollContent: {
     paddingTop: 50,
     paddingHorizontal: 20,
+    paddingBottom: 30,
   },
   topBar: {
     alignItems: 'center',
