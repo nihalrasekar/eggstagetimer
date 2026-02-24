@@ -461,14 +461,24 @@ export default function Index() {
           {renderEgg()}
         </Animated.View>
 
-        {/* Circular Timer - separate section */}
-        <Animated.View style={[styles.timerContainer, animatedPulse]}>
-          <View style={styles.progressContainer}>
-            {renderProgressRing()}
-            <View style={styles.timeDisplay}>
-              <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
-            </View>
+        {/* Horizontal Progress Bar */}
+        <View style={styles.progressBarContainer}>
+          <View style={styles.progressBarBackground}>
+            <Animated.View 
+              style={[
+                styles.progressBarFill,
+                { 
+                  width: `${getProgress()}%`,
+                  backgroundColor: stageConfig.accentColor 
+                }
+              ]} 
+            />
           </View>
+        </View>
+
+        {/* Timer Display - Clean text only */}
+        <Animated.View style={[styles.timerContainer, animatedPulse]}>
+          <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
         </Animated.View>
 
         {/* Stage Info Card */}
