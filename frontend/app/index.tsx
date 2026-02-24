@@ -557,14 +557,28 @@ const styles = StyleSheet.create({
   eggContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
-    height: width * 0.4, // Fixed height to prevent overlap
+    marginBottom: 24,
+    height: width * 0.4,
+  },
+  progressBarContainer: {
+    width: '80%',
+    alignSelf: 'center',
+    marginBottom: 16,
+  },
+  progressBarBackground: {
+    height: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 4,
   },
   timerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    marginTop: 8,
   },
   progressContainer: {
     alignItems: 'center',
