@@ -592,9 +592,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   timeText: {
-    fontSize: 36,
-    fontWeight: '700',
+    fontSize: 56,
+    fontWeight: '800',
     color: '#333',
+    letterSpacing: 2,
   },
   infoCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.7)',
