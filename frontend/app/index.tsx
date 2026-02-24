@@ -321,7 +321,7 @@ export default function Index() {
 
   // Render circular progress ring
   const renderProgressRing = () => {
-    const size = width * 0.5;
+    const size = width * 0.45; // Slightly reduced
     const strokeWidth = 12;
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
