@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as Haptics from 'expo-haptics';
-import { Audio } from 'expo-av';
+import { useAudioPlayer } from 'expo-audio';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -65,9 +65,10 @@ export default function Index() {
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [totalElapsed, setTotalElapsed] = useState(0);
-  
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  
+
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioPlayer = useAudioPlayer({ uri: 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3' });
+
   // Animated values
   const bgColorAnim = useSharedValue(0);
   const wobbleAnim = useSharedValue(0);
@@ -88,7 +89,7 @@ export default function Index() {
   const animatedBackground = useAnimatedStyle(() => {
     const colors = [STAGES.SOFT.bgColor, STAGES.MEDIUM.bgColor, STAGES.HARD.bgColor];
     const bgColor = colors[currentStage - 1];
-    
+
     return {
       backgroundColor: withTiming(bgColor, { duration: 1500, easing: Easing.ease }),
     };
@@ -129,14 +130,11 @@ export default function Index() {
   });
 
   // Play sound effect
-  const playSound = async () => {
+  const playSound = () => {
     try {
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3' },
-        { shouldPlay: true, volume: 0.5 }
-      );
-      await sound.playAsync();
-      setTimeout(() => sound.unloadAsync(), 2000);
+      audioPlayer.seekTo(0);
+      audioPlayer.volume = 0.5;
+      audioPlayer.play();
     } catch (error) {
       console.log('Sound play error:', error);
     }
@@ -157,13 +155,13 @@ export default function Index() {
           if (prev <= 1) {
             // Stage complete
             const nextStage = currentStage + 1;
-            
+
             if (nextStage <= 3) {
               // Move to next stage
               setCurrentStage(nextStage);
               playSound();
               triggerHaptic();
-              
+
               const nextStageConfig = nextStage === 2 ? STAGES.MEDIUM : STAGES.HARD;
               return nextStageConfig.duration;
             } else {
@@ -172,7 +170,7 @@ export default function Index() {
               setIsCompleted(true);
               playSound();
               triggerHaptic();
-              
+
               // Trigger confetti and steam animations
               confettiAnim.value = withRepeat(
                 withTiming(1, { duration: 500 }),
@@ -186,13 +184,13 @@ export default function Index() {
                 ),
                 -1
               );
-              
+
               return 0;
             }
           }
-          
+
           setTotalElapsed((e) => e + 1);
-          
+
           // Pulse in last 30 seconds
           if (prev <= 30 && prev % 2 === 0) {
             pulseAnim.value = withSequence(
@@ -200,7 +198,7 @@ export default function Index() {
               withSpring(1)
             );
           }
-          
+
           return prev - 1;
         });
       }, 1000);
@@ -220,7 +218,7 @@ export default function Index() {
   // Start/Pause button handler
   const handleStartPause = () => {
     if (isCompleted) return;
-    
+
     if (!isRunning) {
       // Start wobble animation
       wobbleAnim.value = withRepeat(
@@ -234,7 +232,7 @@ export default function Index() {
       );
       triggerHaptic();
     }
-    
+
     setIsRunning(!isRunning);
   };
 
@@ -266,7 +264,7 @@ export default function Index() {
   // Render egg illustration
   const renderEgg = () => {
     const size = width * 0.4; // Reduced from 0.35
-    
+
     if (currentStage === 1) {
       // Soft boiled - liquid yolk
       return (
@@ -360,7 +358,7 @@ export default function Index() {
   // Render confetti
   const renderConfetti = () => {
     if (!isCompleted) return null;
-    
+
     return (
       <Animated.View style={[styles.confettiContainer, animatedConfetti]}>
         {[...Array(20)].map((_, i) => (
@@ -382,7 +380,7 @@ export default function Index() {
   // Render steam
   const renderSteam = () => {
     if (!isCompleted) return null;
-    
+
     return (
       <Animated.View style={[styles.steamContainer, animatedSteam]}>
         {[...Array(5)].map((_, i) => (
@@ -405,18 +403,18 @@ export default function Index() {
       <Animated.View style={[styles.container, animatedBackground]}>
         <StatusBar style="dark" />
         {renderConfetti()}
-        
+
         <View style={styles.completionContainer}>
           {renderSteam()}
           <Animated.View style={animatedEgg}>
             {renderEgg()}
           </Animated.View>
-          
+
           <Text style={styles.completionTitle}>Your egg is ready! 🥚</Text>
           <Text style={styles.completionSubtitle}>
             Total time: {Math.floor(totalElapsed / 60)} minutes {totalElapsed % 60} seconds
           </Text>
-          
+
           <TouchableOpacity style={styles.restartButton} onPress={handleReset}>
             <Text style={styles.restartButtonText}>Start New Timer</Text>
           </TouchableOpacity>
@@ -428,8 +426,8 @@ export default function Index() {
   return (
     <Animated.View style={[styles.container, animatedBackground]}>
       <StatusBar style="dark" />
-      
-      <ScrollView 
+
+      <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
@@ -464,14 +462,14 @@ export default function Index() {
         {/* Horizontal Progress Bar */}
         <View style={styles.progressBarContainer}>
           <View style={styles.progressBarBackground}>
-            <Animated.View 
+            <Animated.View
               style={[
                 styles.progressBarFill,
-                { 
+                {
                   width: `${getProgress()}%`,
-                  backgroundColor: stageConfig.accentColor 
+                  backgroundColor: stageConfig.accentColor
                 }
-              ]} 
+              ]}
             />
           </View>
         </View>
@@ -495,7 +493,7 @@ export default function Index() {
           >
             <Text style={styles.buttonText}>{isRunning ? 'Pause' : 'Start'}</Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
             onPress={handleReset}
