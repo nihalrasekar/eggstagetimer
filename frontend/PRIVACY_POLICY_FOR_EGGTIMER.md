@@ -39,7 +39,8 @@ We may update our Privacy Policy from time to time. Any changes will be reflecte
 ## 7. Contact Us
 
 If you have any questions about this Privacy Policy, you can contact us at:
-[Your Contact Email/Website - Optional]
+email: niiaasshyay@gmail.com
+
 
 ---
 *This privacy policy was generated for the EggTimer app to ensure transparency regarding its data-less operation.*
